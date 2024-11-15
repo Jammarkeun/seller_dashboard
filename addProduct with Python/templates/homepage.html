@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage - Our E-commerce Store{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Welcome to Lance Store</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='uploads/' + product.image) }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description[:100] }}{% if product.description|length > 100 %}...{% endif %}</p>
+                <p class="card-text"><strong>Price:</strong> ${{ "%.2f"|format(product.price) }}</p>
+                <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
+                <p class="card-text"><strong>In stock:</strong> {{ product.quantity }}</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
